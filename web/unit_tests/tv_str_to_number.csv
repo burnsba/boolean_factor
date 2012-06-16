@@ -1,0 +1,23 @@
+NaN::"A"
+NaN::\n
+NaN::"\n"
+NaN::""
+NaN::null
+NaN::[]
+NaN::[1, 2, 3]
+NaN::NaN
+NaN::true
+NaN::false
+NaN::"NaN"
+Infinity::Infinity
+Infinity::"Infinity"
+-1::-1
+-1::"-1"
+0::0
+0::"0"
+1::1
+1::"1"
+44::"44"
+68::"0x44"
+NaN::"x44"
+68::"0X44"

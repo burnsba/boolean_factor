@@ -1,0 +1,8 @@
+true::[]
+true::[0]
+true::[[0], [1]]
+
+false::0
+false::"A"
+false::NaN
+false::null

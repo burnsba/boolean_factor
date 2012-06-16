@@ -1,0 +1,49 @@
+.unit_test_table {
+	border: 1px solid #999999; 
+	padding: 1em; 
+	margin: 1em;
+}
+
+.unit_test_odd_row {
+	background-color: #eeeecc
+}
+
+.unit_test_even_row {
+	background-color: #ccccee
+}
+*.passed_result {
+	background-color: #aaff77;
+}
+*.failed_result {
+	background-color: #ff6666;
+}
+
+.failed_test_warning {
+	background-color: #ff8282;
+}
+
+*.index_table_extra_object {
+	font-size: 66%;
+	background-color: #ffff99; /* tan yellow */
+}
+
+*.index_table_extra_string {
+	font-size: 66%;
+	background-color: #FF9C59; /* light brown/orange */
+}
+
+*.index_table_extra_number {
+	font-size: 66%;
+	background-color: #cccccc; /* gray */
+}
+
+*.index_table_extra_boolean {
+	font-size: 66%;
+	background-color: #99ccff; /* light blue */
+}
+
+*.index_table_extra_undefined {
+	font-size: 66%;
+	background-color: #194350; /* dark dark blue */
+}
+

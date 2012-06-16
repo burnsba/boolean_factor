@@ -1,0 +1,492 @@
+<html> 
+<head> 
+<title>UnitTest</title> 
+<link href="../web/my_style.css" rel="stylesheet" type="text/css"> 
+<link href="../web/unit_tests/unit_test.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../web/recursive_common.js"></script> 
+ 
+<script type="text/javascript" src="../web/unit_test.js"></script> 
+ 
+<script type="text/javascript" src="../web/helper_functions.js"></script> 
+<script type="text/javascript"> 
+	test_are_compliments = new UnitTest("t_are_compliments", are_compliments, null, "t_are_compliments_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_are_compliments.csv",
+		});
+	test_are_negatives = new UnitTest("t_are_negatives", are_negatives, null, "t_are_negatives_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_are_negatives.csv",
+		});
+	test_array_make_not = new UnitTest("t_array_make_not", array_make_not, null, "t_array_make_not_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_array_make_not.csv",
+		});
+	test_bracket_safe_get_operators = new UnitTest("t_bracket_safe_get_operators", bracket_safe_get_operators, null, "t_bracket_safe_get_operators_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_bracket_safe_get_operators.csv",
+		});
+	test_bracket_safe_split = new UnitTest("t_bracket_safe_split", bracket_safe_split, null, "t_bracket_safe_split_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_bracket_safe_split.csv",
+		});
+	test_get_not_tokens = new UnitTest("t_get_not_tokens", get_not_tokens, null, "t_get_not_tokens_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_get_not_tokens.csv",
+		});
+	test_get_not_tokens_clean = new UnitTest("t_get_not_tokens_clean", get_not_tokens_clean, null, "t_get_not_tokens_clean_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_get_not_tokens_clean.csv",
+		});
+	test_get_tokens_clean = new UnitTest("t_get_tokens_clean", get_tokens_clean, null, "t_get_tokens_clean_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_get_tokens_clean.csv",
+		});
+	test_get_tokens_less_nots = new UnitTest("t_get_tokens_less_nots", get_tokens_less_nots, null, "t_get_tokens_less_nots_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_get_tokens_less_nots.csv",
+		});
+	test_get_unique_boolean_operators = new UnitTest("t_get_unique_boolean_operators", get_unique_boolean_operators, null, "t_get_unique_boolean_operators_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_get_unique_boolean_operators.csv",
+		});
+	test_get_unique_boolean_tokens = new UnitTest("t_get_unique_boolean_tokens", get_unique_boolean_tokens, null, "t_get_unique_boolean_tokens_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_get_unique_boolean_tokens.csv",
+		});
+	test_has_binary_operators = new UnitTest("t_has_binary_operators", has_binary_operators, null, "t_has_binary_operators_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_has_binary_operators.csv",
+		});
+	test_is_operator = new UnitTest("t_is_operator", is_operator, null, "t_is_operator_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_is_operator.csv",
+		});
+	test_m_safe_for_not = new UnitTest("t_m_safe_for_not", m_safe_for_not, null, "t_m_safe_for_not_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_m_safe_for_not.csv",
+		});
+	test_make_32_clean = new UnitTest("t_make_32_clean", make_32_clean, null, "t_make_32_clean_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_make_32_clean.csv",
+		});
+	test_make_not = new UnitTest("t_make_not", make_not, null, "t_make_not_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_make_not.csv",
+		});
+	test_op_order_compare_1_to_2 = new UnitTest("t_op_order_compare_1_to_2", op_order_compare_1_to_2, null, "t_op_order_compare_1_to_2_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_op_order_compare_1_to_2.csv",
+		});
+	test_operation_sort = new UnitTest("t_operation_sort", operation_sort, null, "t_operation_sort_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_operation_sort.csv",
+		});
+	test_remove_extra_brackets = new UnitTest("t_remove_extra_brackets", remove_extra_brackets, null, "t_remove_extra_brackets_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_remove_extra_brackets.csv",
+		});
+	test_replace_token_and_negative_with_x = new UnitTest("t_replace_token_and_negative_with_x", replace_token_and_negative_with_x, null, "t_replace_token_and_negative_with_x_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_replace_token_and_negative_with_x.csv",
+		});
+	test_rot_factor = new UnitTest("t_rot_factor", rot_factor, null, "t_rot_factor_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_rot_factor.csv",
+		});
+	test_xor_factor = new UnitTest("t_xor_factor", xor_factor, null, "t_xor_factor_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_xor_factor.csv",
+		});
+ 
+	var timer_ref = null;
+	var test_count = 0;
+ 
+function next_test_all()
+{
+	clearTimeout(timer_ref);
+	if (test_count > 22)
+	{
+		document.getElementById("test_all_status").innerHTML = "done";
+		return;
+	}
+	document.getElementById("test_all_status").innerHTML = "running test " + test_count + " of 22";
+	switch(test_count)
+	{
+		case 0:
+			load_and_go(test_are_compliments);
+		break;
+		case 1:
+			load_and_go(test_are_negatives);
+		break;
+		case 2:
+			load_and_go(test_array_make_not);
+		break;
+		case 3:
+			load_and_go(test_bracket_safe_get_operators);
+		break;
+		case 4:
+			load_and_go(test_bracket_safe_split);
+		break;
+		case 5:
+			load_and_go(test_get_not_tokens);
+		break;
+		case 6:
+			load_and_go(test_get_not_tokens_clean);
+		break;
+		case 7:
+			load_and_go(test_get_tokens_clean);
+		break;
+		case 8:
+			load_and_go(test_get_tokens_less_nots);
+		break;
+		case 9:
+			load_and_go(test_get_unique_boolean_operators);
+		break;
+		case 10:
+			load_and_go(test_get_unique_boolean_tokens);
+		break;
+		case 11:
+			load_and_go(test_has_binary_operators);
+		break;
+		case 12:
+			load_and_go(test_is_operator);
+		break;
+		case 13:
+			load_and_go(test_m_safe_for_not);
+		break;
+		case 14:
+			load_and_go(test_make_32_clean);
+		break;
+		case 15:
+			load_and_go(test_make_not);
+		break;
+		case 16:
+			load_and_go(test_op_order_compare_1_to_2);
+		break;
+		case 17:
+			load_and_go(test_operation_sort);
+		break;
+		case 18:
+			load_and_go(test_remove_extra_brackets);
+		break;
+		case 19:
+			load_and_go(test_replace_token_and_negative_with_x);
+		break;
+		case 20:
+			load_and_go(test_rot_factor);
+		break;
+		case 21:
+			load_and_go(test_xor_factor);
+		break;
+		default:
+		break;
+	}
+	timer_ref = setTimeout("next_test_all()",1000);
+	test_count = test_count + 1;
+	return;
+}
+function cancel_test_all()
+{
+clearTimeout(timer_ref);
+}
+</script> 
+</head> 
+ 
+<body> 
+	<a href="/web/index.html">back to index</a> 
+	<p> 
+	<button onclick="next_test_all()">run all tests on page</button>  
+	<button onclick="cancel_test_all()">cancel running tests</button><p> 
+	<div id="test_all_status"></div><p> 
+	<table class="unit_test_table"> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_are_compliments<br> 
+		file url: <a href="../web/unit_tests/tv_are_compliments.csv">../web/unit_tests/tv_are_compliments.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_are_compliments)">test</button><p> 
+		<button onclick="show_all_results(test_are_compliments)">Show all</button> 
+		<button onclick="hide_all_results(test_are_compliments)">Hide all</button> 
+		<button onclick="show_only_passed(test_are_compliments)">only show passed</button> 
+		<button onclick="show_only_failed(test_are_compliments)">only show failed</button> 
+		<div id="t_are_compliments_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_are_negatives<br> 
+		file url: <a href="../web/unit_tests/tv_are_negatives.csv">../web/unit_tests/tv_are_negatives.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_are_negatives)">test</button><p> 
+		<button onclick="show_all_results(test_are_negatives)">Show all</button> 
+		<button onclick="hide_all_results(test_are_negatives)">Hide all</button> 
+		<button onclick="show_only_passed(test_are_negatives)">only show passed</button> 
+		<button onclick="show_only_failed(test_are_negatives)">only show failed</button> 
+		<div id="t_are_negatives_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_array_make_not<br> 
+		file url: <a href="../web/unit_tests/tv_array_make_not.csv">../web/unit_tests/tv_array_make_not.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_array_make_not)">test</button><p> 
+		<button onclick="show_all_results(test_array_make_not)">Show all</button> 
+		<button onclick="hide_all_results(test_array_make_not)">Hide all</button> 
+		<button onclick="show_only_passed(test_array_make_not)">only show passed</button> 
+		<button onclick="show_only_failed(test_array_make_not)">only show failed</button> 
+		<div id="t_array_make_not_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_bracket_safe_get_operators<br> 
+		file url: <a href="../web/unit_tests/tv_bracket_safe_get_operators.csv">../web/unit_tests/tv_bracket_safe_get_operators.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_bracket_safe_get_operators)">test</button><p> 
+		<button onclick="show_all_results(test_bracket_safe_get_operators)">Show all</button> 
+		<button onclick="hide_all_results(test_bracket_safe_get_operators)">Hide all</button> 
+		<button onclick="show_only_passed(test_bracket_safe_get_operators)">only show passed</button> 
+		<button onclick="show_only_failed(test_bracket_safe_get_operators)">only show failed</button> 
+		<div id="t_bracket_safe_get_operators_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_bracket_safe_split<br> 
+		file url: <a href="../web/unit_tests/tv_bracket_safe_split.csv">../web/unit_tests/tv_bracket_safe_split.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_bracket_safe_split)">test</button><p> 
+		<button onclick="show_all_results(test_bracket_safe_split)">Show all</button> 
+		<button onclick="hide_all_results(test_bracket_safe_split)">Hide all</button> 
+		<button onclick="show_only_passed(test_bracket_safe_split)">only show passed</button> 
+		<button onclick="show_only_failed(test_bracket_safe_split)">only show failed</button> 
+		<div id="t_bracket_safe_split_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_get_not_tokens<br> 
+		file url: <a href="../web/unit_tests/tv_get_not_tokens.csv">../web/unit_tests/tv_get_not_tokens.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_get_not_tokens)">test</button><p> 
+		<button onclick="show_all_results(test_get_not_tokens)">Show all</button> 
+		<button onclick="hide_all_results(test_get_not_tokens)">Hide all</button> 
+		<button onclick="show_only_passed(test_get_not_tokens)">only show passed</button> 
+		<button onclick="show_only_failed(test_get_not_tokens)">only show failed</button> 
+		<div id="t_get_not_tokens_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_get_not_tokens_clean<br> 
+		file url: <a href="../web/unit_tests/tv_get_not_tokens_clean.csv">../web/unit_tests/tv_get_not_tokens_clean.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_get_not_tokens_clean)">test</button><p> 
+		<button onclick="show_all_results(test_get_not_tokens_clean)">Show all</button> 
+		<button onclick="hide_all_results(test_get_not_tokens_clean)">Hide all</button> 
+		<button onclick="show_only_passed(test_get_not_tokens_clean)">only show passed</button> 
+		<button onclick="show_only_failed(test_get_not_tokens_clean)">only show failed</button> 
+		<div id="t_get_not_tokens_clean_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_get_tokens_clean<br> 
+		file url: <a href="../web/unit_tests/tv_get_tokens_clean.csv">../web/unit_tests/tv_get_tokens_clean.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_get_tokens_clean)">test</button><p> 
+		<button onclick="show_all_results(test_get_tokens_clean)">Show all</button> 
+		<button onclick="hide_all_results(test_get_tokens_clean)">Hide all</button> 
+		<button onclick="show_only_passed(test_get_tokens_clean)">only show passed</button> 
+		<button onclick="show_only_failed(test_get_tokens_clean)">only show failed</button> 
+		<div id="t_get_tokens_clean_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_get_tokens_less_nots<br> 
+		file url: <a href="../web/unit_tests/tv_get_tokens_less_nots.csv">../web/unit_tests/tv_get_tokens_less_nots.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_get_tokens_less_nots)">test</button><p> 
+		<button onclick="show_all_results(test_get_tokens_less_nots)">Show all</button> 
+		<button onclick="hide_all_results(test_get_tokens_less_nots)">Hide all</button> 
+		<button onclick="show_only_passed(test_get_tokens_less_nots)">only show passed</button> 
+		<button onclick="show_only_failed(test_get_tokens_less_nots)">only show failed</button> 
+		<div id="t_get_tokens_less_nots_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_get_unique_boolean_operators<br> 
+		file url: <a href="../web/unit_tests/tv_get_unique_boolean_operators.csv">../web/unit_tests/tv_get_unique_boolean_operators.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_get_unique_boolean_operators)">test</button><p> 
+		<button onclick="show_all_results(test_get_unique_boolean_operators)">Show all</button> 
+		<button onclick="hide_all_results(test_get_unique_boolean_operators)">Hide all</button> 
+		<button onclick="show_only_passed(test_get_unique_boolean_operators)">only show passed</button> 
+		<button onclick="show_only_failed(test_get_unique_boolean_operators)">only show failed</button> 
+		<div id="t_get_unique_boolean_operators_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_get_unique_boolean_tokens<br> 
+		file url: <a href="../web/unit_tests/tv_get_unique_boolean_tokens.csv">../web/unit_tests/tv_get_unique_boolean_tokens.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_get_unique_boolean_tokens)">test</button><p> 
+		<button onclick="show_all_results(test_get_unique_boolean_tokens)">Show all</button> 
+		<button onclick="hide_all_results(test_get_unique_boolean_tokens)">Hide all</button> 
+		<button onclick="show_only_passed(test_get_unique_boolean_tokens)">only show passed</button> 
+		<button onclick="show_only_failed(test_get_unique_boolean_tokens)">only show failed</button> 
+		<div id="t_get_unique_boolean_tokens_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_has_binary_operators<br> 
+		file url: <a href="../web/unit_tests/tv_has_binary_operators.csv">../web/unit_tests/tv_has_binary_operators.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_has_binary_operators)">test</button><p> 
+		<button onclick="show_all_results(test_has_binary_operators)">Show all</button> 
+		<button onclick="hide_all_results(test_has_binary_operators)">Hide all</button> 
+		<button onclick="show_only_passed(test_has_binary_operators)">only show passed</button> 
+		<button onclick="show_only_failed(test_has_binary_operators)">only show failed</button> 
+		<div id="t_has_binary_operators_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_is_operator<br> 
+		file url: <a href="../web/unit_tests/tv_is_operator.csv">../web/unit_tests/tv_is_operator.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_is_operator)">test</button><p> 
+		<button onclick="show_all_results(test_is_operator)">Show all</button> 
+		<button onclick="hide_all_results(test_is_operator)">Hide all</button> 
+		<button onclick="show_only_passed(test_is_operator)">only show passed</button> 
+		<button onclick="show_only_failed(test_is_operator)">only show failed</button> 
+		<div id="t_is_operator_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_m_safe_for_not<br> 
+		file url: <a href="../web/unit_tests/tv_m_safe_for_not.csv">../web/unit_tests/tv_m_safe_for_not.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_m_safe_for_not)">test</button><p> 
+		<button onclick="show_all_results(test_m_safe_for_not)">Show all</button> 
+		<button onclick="hide_all_results(test_m_safe_for_not)">Hide all</button> 
+		<button onclick="show_only_passed(test_m_safe_for_not)">only show passed</button> 
+		<button onclick="show_only_failed(test_m_safe_for_not)">only show failed</button> 
+		<div id="t_m_safe_for_not_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_make_32_clean<br> 
+		file url: <a href="../web/unit_tests/tv_make_32_clean.csv">../web/unit_tests/tv_make_32_clean.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_make_32_clean)">test</button><p> 
+		<button onclick="show_all_results(test_make_32_clean)">Show all</button> 
+		<button onclick="hide_all_results(test_make_32_clean)">Hide all</button> 
+		<button onclick="show_only_passed(test_make_32_clean)">only show passed</button> 
+		<button onclick="show_only_failed(test_make_32_clean)">only show failed</button> 
+		<div id="t_make_32_clean_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_make_not<br> 
+		file url: <a href="../web/unit_tests/tv_make_not.csv">../web/unit_tests/tv_make_not.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_make_not)">test</button><p> 
+		<button onclick="show_all_results(test_make_not)">Show all</button> 
+		<button onclick="hide_all_results(test_make_not)">Hide all</button> 
+		<button onclick="show_only_passed(test_make_not)">only show passed</button> 
+		<button onclick="show_only_failed(test_make_not)">only show failed</button> 
+		<div id="t_make_not_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_op_order_compare_1_to_2<br> 
+		file url: <a href="../web/unit_tests/tv_op_order_compare_1_to_2.csv">../web/unit_tests/tv_op_order_compare_1_to_2.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_op_order_compare_1_to_2)">test</button><p> 
+		<button onclick="show_all_results(test_op_order_compare_1_to_2)">Show all</button> 
+		<button onclick="hide_all_results(test_op_order_compare_1_to_2)">Hide all</button> 
+		<button onclick="show_only_passed(test_op_order_compare_1_to_2)">only show passed</button> 
+		<button onclick="show_only_failed(test_op_order_compare_1_to_2)">only show failed</button> 
+		<div id="t_op_order_compare_1_to_2_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_operation_sort<br> 
+		file url: <a href="../web/unit_tests/tv_operation_sort.csv">../web/unit_tests/tv_operation_sort.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_operation_sort)">test</button><p> 
+		<button onclick="show_all_results(test_operation_sort)">Show all</button> 
+		<button onclick="hide_all_results(test_operation_sort)">Hide all</button> 
+		<button onclick="show_only_passed(test_operation_sort)">only show passed</button> 
+		<button onclick="show_only_failed(test_operation_sort)">only show failed</button> 
+		<div id="t_operation_sort_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_remove_extra_brackets<br> 
+		file url: <a href="../web/unit_tests/tv_remove_extra_brackets.csv">../web/unit_tests/tv_remove_extra_brackets.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_remove_extra_brackets)">test</button><p> 
+		<button onclick="show_all_results(test_remove_extra_brackets)">Show all</button> 
+		<button onclick="hide_all_results(test_remove_extra_brackets)">Hide all</button> 
+		<button onclick="show_only_passed(test_remove_extra_brackets)">only show passed</button> 
+		<button onclick="show_only_failed(test_remove_extra_brackets)">only show failed</button> 
+		<div id="t_remove_extra_brackets_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_replace_token_and_negative_with_x<br> 
+		file url: <a href="../web/unit_tests/tv_replace_token_and_negative_with_x.csv">../web/unit_tests/tv_replace_token_and_negative_with_x.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_replace_token_and_negative_with_x)">test</button><p> 
+		<button onclick="show_all_results(test_replace_token_and_negative_with_x)">Show all</button> 
+		<button onclick="hide_all_results(test_replace_token_and_negative_with_x)">Hide all</button> 
+		<button onclick="show_only_passed(test_replace_token_and_negative_with_x)">only show passed</button> 
+		<button onclick="show_only_failed(test_replace_token_and_negative_with_x)">only show failed</button> 
+		<div id="t_replace_token_and_negative_with_x_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_rot_factor<br> 
+		file url: <a href="../web/unit_tests/tv_rot_factor.csv">../web/unit_tests/tv_rot_factor.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_rot_factor)">test</button><p> 
+		<button onclick="show_all_results(test_rot_factor)">Show all</button> 
+		<button onclick="hide_all_results(test_rot_factor)">Hide all</button> 
+		<button onclick="show_only_passed(test_rot_factor)">only show passed</button> 
+		<button onclick="show_only_failed(test_rot_factor)">only show failed</button> 
+		<div id="t_rot_factor_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_xor_factor<br> 
+		file url: <a href="../web/unit_tests/tv_xor_factor.csv">../web/unit_tests/tv_xor_factor.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_xor_factor)">test</button><p> 
+		<button onclick="show_all_results(test_xor_factor)">Show all</button> 
+		<button onclick="hide_all_results(test_xor_factor)">Hide all</button> 
+		<button onclick="show_only_passed(test_xor_factor)">only show passed</button> 
+		<button onclick="show_only_failed(test_xor_factor)">only show failed</button> 
+		<div id="t_xor_factor_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	</table> 
+	<p> 
+UnitTest perl script/html generator 2012.06.09
+<p> 
+</body></html>

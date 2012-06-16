@@ -1,0 +1,156 @@
+<html> 
+<head>
+	<title>Recursive XOR multiply 0.2</title>
+	
+	<link href="my_style.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript" src="recursive_common.js"></script>
+	<script type="text/javascript" src="helper_functions.js"></script>
+	
+	<script type="text/javascript">
+	function init()
+	{
+		document.getElementById("ta_equation").value = "a ^ b";
+		document.getElementById("ta_num_times").value = "8";
+	}
+	function recursive_xor_multiply()
+	{
+		var equation = "";	// the input equation
+		var num_times = 0;	// number of times to iterate
+		var tokens = "";	// input gets split into unique tokens to work with
+		var temp_tokens = "";	// for splitting the output into tokens -- need to keep the originals untouched
+		var out = "";
+		
+		// get the initial input
+		equation = document.getElementById("ta_equation").value;
+		num_times = document.getElementById("ta_num_times").value;
+		
+		// check to make sure the input makes sense
+		if (isNaN(num_times))
+		{
+			alert("Error! The number of times is not a number!");
+			return;
+		}
+		if (num_times < 2)
+		{
+			alert("Error! The number of times needs to be larger than 1!");
+			return;
+		}
+
+		// remove whitespace
+		equation = remove_whitespace(equation);
+		
+		// now split the input into single unique tokens
+		tokens = equation.split("^");
+		// get rid of duplicates
+		tokens = xor_factor(tokens);
+		
+		tokens.sort();
+		
+		if (tokens.length < 2)
+		{
+			alert("Error! Found less than two input variables!");
+			return;
+		}
+		
+		// first time through, copy the tokens into the output string
+		for (var i = 0; i < tokens.length; i++)
+		{
+			out = out + tokens[i] + "^";
+		}
+		out = out.slice(0, out.length - 1);
+		
+		// now iterate through however many times
+		for (var count=1; count < num_times; count++)
+		{
+			// split into tokens
+			temp_tokens = out.split("^");
+		
+			// get rid of duplicates
+			temp_tokens = xor_factor(temp_tokens);
+			temp_tokens.sort();
+		
+			// create the new output string
+			out = "";
+			for (var i=0; i < tokens.length; i++)
+			{
+				for (var j=0; j < temp_tokens.length; j++)
+				{
+					// mix the two tokens together, then alphabetize it
+					var t = tokens[i] + temp_tokens[j];
+					t = t.split("");
+					t.sort();
+					for (var it=0; it<t.length; it++)
+					{out=out+t[it];}
+					out = out + "^";				
+				}
+			}
+			out = out.slice(0, out.length - 1);
+		}
+		
+		// clean up the output one last time
+		out = remove_whitespace(out);
+		tokens = out.split("^");
+		
+		// get rid of duplicates
+		tokens = xor_factor(tokens);
+
+		out = "";
+		// make the output look nice		
+		for (var i = 0; i < tokens.length; i++)
+		{
+			out = out + tokens[i] + " ^ ";
+		}
+		
+		out = out.slice(0, out.length - 3);
+		
+		// set the output
+		document.getElementById("ta_result").value = out;
+	}
+	
+	</script>
+</head>
+
+<body onload="init()">
+	<a href="index.html">back to index</a>
+	<p>
+	Hello!
+	<p>
+	This javascript page will take a simple bitwise recursive relation, expand it and simplify the result! Equations of the form:<br>
+	<div class="indent">
+		T<sub>n</sub> = a*T<sub>n-1</sub> ^ b*T<sub>n-1</sub> ^ c*T<sub>n-1</sub> ...
+	</div><br>
+	are accepted, where:<br>
+	<div class="indent">
+		a,b,c ... are bitwise-distributable constants (2<sup>x</sup>)<br>
+		* is base 10 multiply (higher precedence)<br>
+		^ is base 2 exclusive or (lower precence)<br>
+	</div>
+	<p>
+	Note: This has limited use for working with actual 32 bit numbers.<br>
+	Warning: 8 input variables at 34 iterations takes about 15 seconds to run on my i3 laptop (M380@2.53GHz w/ 2Gb RAM)
+	<p>
+	<button><a onClick='window.location="view-source:" + window.location.href'>Page Source</a></button>
+	<p>
+	<table class="function_area">
+	<tr>
+		<td>T=</td>
+		<td><textarea rows="4" cols="40" id="ta_equation"></textarea></td>
+	</tr>
+	<tr>
+		<td>number of times=</td>
+		<td><textarea rows="1" cols="40" id="ta_num_times"></textarea></td>
+	</tr>
+	<tr>
+		<td><button type="button" onclick="recursive_xor_multiply()">Go</button></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>result:</td>
+		<td><textarea rows="8" cols="80" id="ta_result"></textarea></td>
+	</tr>
+
+	</table>
+
+</body>
+</html>

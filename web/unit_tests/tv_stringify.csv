@@ -1,0 +1,25 @@
+"null"::null
+"[]"::[]
+"[a]"::["a"]
+"[\n]"::["\n"]
+"0"::0
+"null"::"null"
+"[]"::"[]"
+"[A, B]"::["A", "B"]
+"[null]"::[null]
+"[]"::[""]
+"NaN"::NaN
+"Infinity"::Infinity
+"1"::1
+"-1"::-1
+"0.1"::0.1
+"true"::true
+"false"::false
+""::""
+"0/1"::"0/1"
+"var"::"var"
+"()"::"()"
+"if"::"if"
+"0xffff"::"0xffff"
+"0X0A"::"0X0A"
+"ABCDEF"::"ABCDEF"

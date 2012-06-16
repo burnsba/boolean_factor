@@ -1,0 +1,296 @@
+<html> 
+<head>
+	<title>Recursive XOR rotate 0.2</title>
+	
+	<link href="my_style.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript" src="recursive_common.js"></script>
+	<script type="text/javascript" src="helper_functions.js"></script>
+	
+	<script type="text/javascript">
+	function init()
+	{
+		document.getElementById("ta_equation").value = "2, 13, 22";
+		document.getElementById("ta_num_times").value = "6";
+		
+		preview_equation();
+	}
+	// this function generates the preview equation based on the values in the coefficent text box.
+	// This is called by the main function to do a preliminary error check, so this will
+	// return everything wrong with the coefficients for use in that function
+	function preview_equation()
+	{
+		var equation = "";		// the input equation
+		var i;				// count
+		var token_value = [];		// will store the numbers in the input string
+		var error_text = "";		// if something fails during parsing, this will explain everything that is wrong
+			
+		// get the input
+		equation = document.getElementById("ta_equation").value;
+		equation = remove_whitespace(equation);
+
+		// separate the equation by commas
+		var per_comma = equation.split(",");
+
+		// iterate through all the strings found pulling out the token name and associated value
+		for (i=0; i<per_comma.length; i++)
+		{
+			// try and generate some useful error messages
+			// btw, for some reason isNaN will return false if per_comma[1] = "" (which is non null)
+			if (isNaN(per_comma[i]))
+			{
+				error_text += "Input is not a number: " + per_comma[i] + "\n";
+				continue;
+			}
+			else if (per_comma[i].length < 1)
+			{
+				error_text += "Stray comma found.\n";
+				continue;
+			}
+
+			token_value[i] = per_comma[i];
+		}
+
+		// note that this is called by the "Go" button, and everytime the coefficients textbox
+		// changes, so be careful changing this if statement (e.g., with return statements)
+		if (error_text != "")
+		{
+			document.getElementById("div_eq_preview").innerHTML = "incomplete";
+			
+			// for debugging:
+			//document.getElementById("ta_result").value = error_text;
+		}
+		else
+		{
+			// generate text for function preview
+			var output_text = "";
+			// sort numerically
+			token_value.sort(function(a,b){return a - b});
+			for (i=0; i<token_value.length; i++)
+			{
+				output_text += "ROT(T, " + token_value[i] + ") ^ ";
+			}
+			// trim that last exclusive or symbol
+			output_text = output_text.slice(0, output_text.length - 3);
+			document.getElementById("div_eq_preview").innerHTML = output_text;
+		}
+		
+		return error_text;
+	}
+	function recursive_xor_rotate()
+	{
+		var equation = "";	// the input equation
+		var num_times = 0;	// number of times to iterate
+		var token_value = [];	// input gets split into unique tokens to work with
+		var temp_tokens = [];	// for iterating through -- need to keep the originals untouched
+		var out = "";
+		var count = 0;		// for loops!
+		var i,j;		// for loops!
+		
+		// get the initial input
+		equation = document.getElementById("ta_equation").value;
+		num_times = document.getElementById("ta_num_times").value;
+		
+		// check to make sure the input makes sense
+		if (isNaN(num_times))
+		{
+			alert("Error! The number of times is not a number!");
+			return;
+		}
+		if (num_times < 2)
+		{
+			alert("Error! The number of times needs to be larger than 1!");
+			return;
+		}
+		
+		// check that the input equation is all setup and ready to go
+		var error_check = preview_equation();
+		if (error_check != "")
+		{
+			document.getElementById("ta_result").value = error_check;
+			return;
+		}
+
+		// remove whitespace
+		equation = remove_whitespace(equation);
+		// separate the equation by commas
+		var per_comma = equation.split(",");
+
+		// iterate through all the strings found pulling out the token name and associated value
+		// since the preview_equation was called above, no need to do error checking
+		// make sure all these values are mod 32, and change shift left to shift right
+		for (i=0; i<per_comma.length; i++)
+		{
+			// mod 32
+			token_value[i] = per_comma[i] % 32; 
+			// to shift right
+			if (token_value[i] < 0)
+				token_value[i] = token_value[i] + 32;
+		}
+			
+		// get rid of duplicates
+		token_value = xor_factor(token_value);
+		
+		// sort numerically, not lexicographically
+		token_value.sort(function(a,b) { return a-b});
+		
+		
+		if (token_value.length < 2)
+		{
+			alert("Error! Found less than two input variables! (It is possible the input could be factored)");
+			return;
+		}
+		
+		// first time through, fold the originals into the temp array
+		for (i=0; i<token_value.length; i++)
+		{
+			temp_tokens[i] = parseInt(token_value[i]);
+		}
+
+		for (count=1; count<num_times; count++)
+		{
+			// add each of the original tokens to each of the temp  tokens
+			var t = [];
+			for (i=0; i<token_value.length; i++)
+			{
+				for (j=0; j<temp_tokens.length; j++)
+				{	
+					// make sure this is not string concatenation ...
+					t[(i*temp_tokens.length) + j] = parseInt(token_value[i]) + parseInt(temp_tokens[j]);
+				}
+			}
+			temp_tokens = t;
+
+			// clean up the temp_tokens
+			for (i=0; i<temp_tokens.length; i++)
+			{
+				// mod 32
+				temp_tokens[i] = temp_tokens[i] % 32; 
+			}
+			// get rid of duplicates
+			temp_tokens = xor_factor(temp_tokens);
+			
+			if (temp_tokens.length < 1)
+				break;
+		}
+		
+		// sort numerically
+		temp_tokens.sort(function(a,b){return a - b});
+
+		for (i=0; i<temp_tokens.length; i++)
+		{
+			if (temp_tokens[i] == 0)
+				out += "T ^ ";
+			else
+				out += "ROT(T, " + temp_tokens[i] + ") ^ ";
+		}
+		// trim that last exclusive or symbol
+		out = out.slice(0, out.length - 3);
+				
+		// set the output
+		if (out.length < 1)
+		{
+			out = "It looks like this reduces to 0.";
+			document.getElementById("ta_code_out").value = "";
+		}
+		else
+		{
+			document.getElementById("ta_result").value = out;
+			create_c_code();
+		}
+	}
+	
+	// create simple c code output to test things
+	function create_c_code()
+	{
+		var calc_2_code = document.getElementById("ta_result").value;
+		calc_2_code = calc_2_code.replace(/T,/g, "count,");
+		calc_2_code = calc_2_code.replace(/T\s+/g, "count ");
+		var code = "";
+		code += "#include \"stdio.h\"\n";
+		code += "#define ROT(x,b)	(((x) >> (b)) | ((x) << (32 - (b))))\n";
+		code += "#define f(T)		" + document.getElementById("div_eq_preview").innerHTML + "\n";
+		code += "#define MAX (1<<18)\n";
+		code += "int main()\n";
+		code += "{\n";
+		code += "	printf(\"Going to run a few tests on recursive binary functions\\n\");\n";
+		code += "	unsigned int count = 0;\n";
+		code += "	int match_count = 0;\n";
+		code += "	int bad_count = 0;\n";
+		code += "	int i;\n";
+		code += "	for (count=0; count < MAX; count++)\n";
+		code += "	{\n";
+		code += "		unsigned int calc_1 = count;\n";
+		code += "		for (i=0; i<" + document.getElementById("ta_num_times").value + "; i++)\n";
+		code += "			calc_1 = f(calc_1);\n";
+		code += "\n";			
+		code += "		unsigned int calc_2 = " + calc_2_code + ";\n";
+		code += "\n";		
+		code += "		if (calc_1 == calc_2)\n";
+		code += "			match_count++;\n";
+		code += "		else\n";
+		code += "			bad_count++;\n";
+		code += "	}\n";
+		code += "\n";	
+		code += "	printf(\"matches: %d, failures: %d\\n\", match_count, bad_count);\n";
+		code += "	return 0;\n";
+		code += "}\n";
+		document.getElementById("ta_code_out").value = code;
+	}
+	
+	</script>
+</head>
+
+<body onload="init()">
+	<a href="index.html">back to index</a>
+	<p>
+	Hello!
+	<p>
+	This javascript page will take a simple bitwise recursive relation, expand it and simplify the result! Equations of the form:<br>
+	<div class="indent">
+		T<sub>n</sub> = f(T<sub>n-1</sub>)
+	</div><br>
+	are accepted, where:<br>
+	<div class="indent">
+		f(T) = ROT(T, a) ^ ROT(T, b) ^ ROT(T, c) ...<br>
+		ROT(T,x) is a function that rotates right a 32-bit number<br>
+		(negative values of x rotate left)<br>
+		a,b,c ... are 32 bit integers<br>
+		^ is base 2 exclusive or <br>
+	</div>
+	<p>
+	
+	<p>
+	<button><a onClick='window.location="view-source:" + window.location.href'>Page Source</a></button>
+	<p>
+	<table class="function_area">
+	<tr>
+		<td>Enter the coefficients for f,<br>
+			separated by commas:</td>
+		<td><textarea rows="4" cols="40" id="ta_equation" onkeyup="preview_equation()" onblur="preview_equation()"></textarea></td>
+	</tr>
+	<tr>
+		<td>f(T)=<br>
+		(generated from above)</td>
+		<td><div id="div_eq_preview" class="div_eq_preview"></div></td>
+	</tr>
+	<tr>
+		<td>number of times=</td>
+		<td><textarea rows="1" cols="40" id="ta_num_times"></textarea></td>
+	</tr>
+	<tr>
+		<td><button type="button" onclick="recursive_xor_rotate()">Go</button></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>result:</td>
+		<td><textarea rows="8" cols="80" id="ta_result"></textarea></td>
+	</tr>
+	<tr>
+		<td>c code:</td>
+		<td><textarea rows="35" cols="80" id="ta_code_out"></textarea></td>
+
+	</table>
+
+</body>
+</html>

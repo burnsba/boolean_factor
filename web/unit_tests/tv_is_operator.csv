@@ -1,0 +1,31 @@
+false::"A"
+false::\n
+false::"\n"
+false::""
+false::null
+false::[]
+false::0
+true::"&"
+true::"^"
+true::"|"
+false::"<"
+true::">"
+false::"~"
+false::[1, 2, 3]
+false::["a", " ", "b"]
+false::[null, "", NaN]
+false::["A", "A", "A", "B"]
+false::"AAAAAA B C D E F"
+false::"A B C"
+false::"A & B"
+false::"A & B & C"
+false::"A & B|C"
+false::"AZZZZ&|"
+false::"|^&"
+false::"&&&&&&&&&&&&&&&&&&&&&&"
+false::"A & B ^ (C & (E | F))"
+false::"A | B"
+false::"A ^ C"
+false::"A & B ^ C"
+false::"A | B | C"
+false::"A & B & C & D"

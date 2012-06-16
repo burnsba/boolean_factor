@@ -1,0 +1,30 @@
+body {
+	padding: 3em;
+}
+* {
+	font-family: monospace;
+}
+div.indent {
+	margin-left: 20px;
+}
+div.div_eq_preview {
+	border: 1px solid #999999;
+}
+table td {
+	margin: 6px;
+	padding: 6px;
+}
+table.index_table {
+	border: 1px solid #999999;
+}
+table.index_table td {
+	border: 1px solid #999999;
+}
+
+.index_table {
+    max-width: 400px;
+    overflow: hidden;
+}
+*.index_table_extra {
+	font-size: 66%;
+}

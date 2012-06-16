@@ -1,0 +1,26 @@
+1::"This Is A Test"::"A"
+2::"This Is A Test"::"T"
+0::"This Is A Test"::"B"
+0::"This Is A Test"::"\n"
+0::"This Is A Test"::""
+0::"This Is A Test"::null
+0::"This Is A Test"::[]
+0::"This Is A Test"::["a", " ", "b"]
+0::""::"B"
+0::""::"\n"
+0::""::""
+0::""::null
+0::""::[]
+0::""::["a", " ", "b"]
+0::null::"B"
+0::null::"\n"
+0::null::""
+0::null::null
+0::null::[]
+0::null::["a", " ", "b"]
+0::[]::"B"
+0::[]::"\n"
+0::[]::""
+0::[]::null
+0::[]::[]
+0::[]::["a", " ", "b"]

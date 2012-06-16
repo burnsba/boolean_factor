@@ -1,0 +1,50 @@
+false::null
+false::0
+false::NaN
+false::Infinity
+false::true
+false::false
+false::""
+false::["A", "B"]
+
+true::"A B C"
+true::"ABC"
+
+false::"A & B"
+false::"A ^ B"
+false::"A | B"
+false::"A & B & C"
+false::"A & B ^ C"
+false::"A & B | C"
+false::"A ^ B & C"
+false::"A ^ B ^ C"
+false::"A ^ B | C"
+false::"A | B & C"
+false::"A | B ^ C"
+false::"A | B | C"
+
+false::"A & (B)"
+false::"A ^ (B)"
+false::"A | (B)"
+false::"A & (B & C")
+false::"A & (B ^ C")
+false::"A & (B | C")
+false::"A ^ (B & C")
+false::"A ^ (B ^ C")
+false::"A ^ (B | C")
+false::"A | (B & C")
+false::"A | (B ^ C")
+false::"A | (B | C")
+
+true::"(A & B")
+true::"(A ^ B")
+true::"(A | B")
+true::"(A & B & C")
+true::"(A & B ^ C")
+true::"(A & B | C")
+true::"(A ^ B & C")
+true::"(A ^ B ^ C")
+true::"(A ^ B | C")
+true::"(A | B & C")
+true::"(A | B ^ C")
+true::"(A | B | C")

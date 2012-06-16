@@ -1,0 +1,193 @@
+<html> 
+<head>
+	<title>Boolean factor 0.4.0</title>
+	
+	<link href="my_style.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript" src="recursive_common.js"></script>
+	<script type="text/javascript" src="helper_functions.js"></script>
+	<script type="text/javascript" src="expression.js"></script>
+	<script type="text/javascript" src="boolean_factor.js"></script>
+	
+	<script type="text/javascript">
+	
+	function init()
+	{
+		document.getElementById("ta_equation").value = "(A & ~B | ~A & B) ^ (A & B | A & ~B) ^ ((A & (A | B)) & B | A & ~B) ^ ~C&(D&C|E)";
+		document.getElementById("ta_num_times").value = "3";
+	}
+
+	function button_go()
+	{
+		var i, result = "", num_times = 1;
+
+		num_times = document.getElementById("ta_num_times").value;
+		if (isNaN(num_times))
+		{
+			alert("Error! The number of times is not a number!");
+			return;
+		}
+
+		result = document.getElementById("ta_equation").value;
+
+		for (i=0; i<num_times; i++)
+			result = do_the_factor(result);
+		
+		
+		document.getElementById("ta_result").value = result;
+	}
+	</script>
+</head>
+
+<body onload="init()">
+	<a href="index.html">back to index</a>
+	<p>
+	Hello!
+	<p>
+	This javascript page will take a simple boolean (32-bit) expression and attempt to simplify the result! Expressions of the form:<br>
+	<div class="indent">
+		A &amp; (B | C &gt; 2) ^ D &amp; ~E
+	</div>
+	<br>
+	are accepted, where:<br>
+	<div class="indent">
+		A,B,C ... are boolean (32-bit) values (numbers and underscores allowed)<br>
+		&amp;,|,^,~ are bitwise AND, OR, XOR, and NOT respectively<br>
+		&gt; is rotate right ('A &gt; x' means A rotate right x times)
+	</div>
+	<br>
+	All other characters will result in a syntax error!
+	<p>
+	C style operator precedence is used. From left/highest to right/lowest:<br>
+	<div class="indent">
+		() ~ &gt; &amp; ^ | 
+	</div>
+	<br>
+	Simplification rules applied in order (top to bottom):<br>
+	<div class="indent">
+	<p>
+		identities<br>
+		A &amp; ~A = 0<br>
+		A &amp; 0 = 0<br>
+		A &amp; A = A<br>
+		A &amp; 1 (MAX_TRUE) = A<br>
+		A ^ 0 = A<br>
+		A ^ A = 0<br>
+		A ^ ~A = 1 (MAX_TRUE)<br>
+		A | ~A = 1 (MAX_TRUE)<br>
+		A | 1 (MAX_TRUE) = 1 (MAX_TRUE)<br>
+		A | 0 = A<br>
+		A | A = A<br>
+		A &amp; ~B |~A &amp; B = A ^ B<br>
+		-- other<br>
+		A &amp; B | A &amp; ~B = A<br>
+		A &amp; ~B | ~A &amp; B = A ^ B <br>
+		A &amp; B | A &amp; ~B = A<br> 
+		(A | B) &amp; (A | ~B) = A<br> 
+		A | A &amp; B = A<br> 
+		A &amp; (A | B) = A<br> 
+		A | ~A &amp; B = A | B<br> 
+		A &amp; (~A | B) = A &amp; B<br>
+		A ^ A &amp; B = A &amp; ~B<br>
+		A ^ A &amp; ~B = A &amp; B<br>
+		A &amp; B ^ A &amp; ~B = A<br>
+		A | A ^ B = A | B<br>
+		~A &amp; B ^ A = A | B<br>
+		A &amp; (~A ^ B) = A &amp; B<br>
+		distributive<br>
+		(A | B) &amp; C = A &amp; C | B &amp; C<br>
+		(A ^ B) &amp; C = A &amp; C ^ B &amp; C<br>
+		* &nbsp;&nbsp;&nbsp; (A &amp; B) &gt; C = A &gt; C &amp; B &gt; C<br>
+		* &nbsp;&nbsp;&nbsp; (A ^ B) &gt; C = A &gt; C ^ B &gt; C<br>
+		* &nbsp;&nbsp;&nbsp; (A | B) &gt; C = A &gt; C | B &gt; C<br>
+		A &gt; X &gt; Y = A &gt; Z (where X,Y are known; Z=X+Y%32)<br>
+		<br>
+		not implemented:<br>
+		~(~A) = A<br>
+		De Morgan's laws:<br>
+		<div class="indent">
+		~(A &amp; B) = ~A | ~B<br>
+		~(A | B) = ~A &amp; ~B<br>
+		</div>	
+		** &nbsp;&nbsp;&nbsp; (A ^ B) &amp; ~C = (A | C) ^ (B | C)<br>
+		A &amp; ~C | B &amp; C = A &amp; ~C ^ B &amp; C<br>
+		** and by extension C ^ C &amp; (A | B) = C &amp; ~A &amp; ~B<br>
+		** or C ^ (C &amp; A | C &amp; B)<br>
+		~(A &amp; B) = ~A | ~B<br>
+        	~(A | B) = ~A &amp; ~B<br>
+        	~(A ^ B) = ~A ^ B<br>
+        	** ~(A &gt; B) = ~A &gt; B<br>
+		A ^ A &amp; B ^ B = A | B<br>
+		~A &amp; B ^ (A | B) = A<br>
+		
+		<br>
+		* Partially implemented; does not work for complex equations<br>
+		** test this first<br>
+	</div>
+	<br>
+	<p>
+	Notes:<br>
+	32 bit numbers are assumed
+	<p>
+	Results are in hex
+	<p>
+	MAX_TRUE is defined as <script type="text/javascript">document.write(MAX_TRUE)</script>
+	<p>
+	Some expressions are equivalent, but will give different results depending on which token comes first lexicographically.
+	The following are expressions which fall in this cataegory:<br>
+	~A &amp; ~B | A &amp; B = ~A ^ B = A ^ ~B<br>
+	~(A ^ B) = ~A ^ B = A ^ ~B
+	<p>
+	The above simplification rules are applied in order, which means after only one pass any input equation is probably
+	not simplified fully. Enter the number of times to attempt to simplify below.
+	<p>
+	The rotate right operator (&gt;) is mostly a function, but it can be applied as a binary operator. It can also be distributed
+	over parentheses for 32 bit numbers for the usual operators (&amp;^|). Negative values for the rotate amount can be used
+	to rotate left, but these are actually converted to rotate right values. Example: rotate left 2 is equivalent to 
+	rotate right -2	is equivalent to rotate right 30. Example: (A &gt; 4) &gt; 4 = A &gt; 8. To wander off topic for a bit, I was
+	unsure if I should pick a symbol more appropriate to rotate right, possibly from the unicode set, or if I should 
+	pick a symbol that was easy to find. 
+	<p>
+	Simplification will probably fail when applying one of the above rules and it splits the expression over an operator
+	of similar precendece. For example, "A | A ^ B = A | B" generally works, except when the "A" part contains more "|"
+	operators. Example: "A is X | Z, B is Y -> (X | Z) | Y ^ (X | Z)" does not currently get simplified.
+	
+	<p>
+	<button><a onClick='window.location="view-source:" + window.location.href'>Page Source</a></button>
+	<p>
+	<table class="function_area">
+	<tr>
+		<td>Boolean equation:</td>
+		<td><textarea rows="6" cols="80" id="ta_equation"></textarea></td>
+	</tr>
+	<tr>
+		<td>number of times:</td>
+		<td><textarea rows="1" cols="40" id="ta_num_times"></textarea></td>
+	</tr>
+	<tr>
+		<td><button type="button" onclick="button_go()">Go</button></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>result:</td>
+		<td><textarea rows="8" cols="80" id="ta_result"></textarea></td>
+	</tr>
+
+	</table>
+	
+	<p>
+	<!-- for testing -->
+	<!-- 
+	turn off ex.make_pretty()
+	<script type="text/javascript" src="unit_test.js"></script>
+	<script type="text/javascript" src="test_values_2.js"></script>
+	<button onclick="unit_test(do_the_factor)">test</button><p>
+	
+	<button onclick="show_all_results()">Show all</button> 
+	<button onclick="show_only_passed()">only show passed</button> 
+	<button onclick="show_only_failed()">only show failed</button>
+	<div id="div_results" style="padding: 1em;">results will go here.</div>
+	-->
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<html>
+<head>
+	<title>
+	index
+	</title>
+
+	<link href="my_style.css" rel="stylesheet" type="text/css">
+	
+</head>
+<body>
+
+<table class="index_table">
+	<tr>
+		<td>
+		<a href="boolean_factor.html">boolean factor</a>
+		</td>
+		<td>
+		Takes a boolean algebra equation of the form<br>
+		<div class="indent">
+			A & (B | C) ^ D & ~E
+		</div>
+		<br>
+		where:<br>
+		<div class="indent">
+			A,B,C ... are boolean values<br>
+			&,|,^,~ are bitwise AND, OR, XOR, and NOT respectively<br>
+		</div>
+		<br>
+		and attempts to simplify the expression. 32 bit integers are assumed.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<a href="recursive_xor_multiply.html">recursive xor multipy</a>
+		</td>
+		<td>
+		Takes a recursive function of the form<br>
+		<div class="indent">
+			T<sub>n</sub> = a*T<sub>n-1</sub> ^ b*T<sub>n-1</sub> ^ c*T<sub>n-1</sub> ...
+		</div>
+		<br>
+		where:<br>
+		<div class="indent">
+			a,b,c ... are bitwise-distributable constants (2<sup>x</sup>)<br>
+			* is base 10 multiply (higher precedence)<br>
+			^ is base 2 exclusive or (lower precence)<br>
+		</div>
+		<br>
+		and expands and factors the result as a function of the input variables.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<a href="recursive_xor_rotate.html">recursive xor rotate</a>
+		</td>
+		<td>
+		Takes a recursive function of the form<br>
+		<div class="indent">
+			T<sub>n</sub> = f(T<sub>n-1</sub>)
+		</div>
+		<br>
+		where:<br>
+		<div class="indent">
+			f(T) = ROT(T, a) ^ ROT(T, b) ^ ROT(T, c) ...<br>
+			ROT(T,x) is a function that rotates right a 32-bit number<br>
+			(negative values of x rotate left)<br>
+			a,b,c ... are 32 bit integers<br>
+			^ is base 2 exclusive or <br>
+		</div>
+		<br>
+		and expands and factors the result as a function of the input variable.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<a href="/perl/maketestui.cgi?filename=helper_functions.js">Test helper_functions.js</a>
+		</td>
+		<td>
+		Unit tests for helper_functions.js
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<a href="/perl/maketestui.cgi?filename=recursive_common.js&i=helper_functions.js">Test recursive_common.js</a>
+		</td>
+		<td>
+		Unit tests for recursive_common.js
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<a href="/perl/maketestui.cgi?filename=boolean_factor.js&i=recursive_common.js&i=helper_functions.js&i=expression.js">Test boolean_factor.js</a>
+		</td>
+		<td>
+		Unit tests for boolean_factor.js<br>
+		Note that only the wrapper function has test values<br>
+		Might want to change the function to simplify multiple times
+		</td>
+	</tr>
+</table>
+<p>
+</body>
+</html>

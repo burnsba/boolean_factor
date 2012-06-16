@@ -1,0 +1,194 @@
+<html> 
+<head> 
+<title>UnitTest</title> 
+<link href="../web/my_style.css" rel="stylesheet" type="text/css"> 
+<link href="../web/unit_tests/unit_test.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../web/boolean_factor.js"></script> 
+ 
+<script type="text/javascript" src="../web/unit_test.js"></script> 
+ 
+<script type="text/javascript" src="../web/recursive_common.js"></script> 
+<script type="text/javascript" src="../web/helper_functions.js"></script> 
+<script type="text/javascript" src="../web/expression.js"></script> 
+<script type="text/javascript"> 
+	test_boolean_factor = new UnitTest("t_boolean_factor", boolean_factor, null, "t_boolean_factor_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_boolean_factor.csv",
+		});
+	test_boolean_factor_two = new UnitTest("t_boolean_factor_two", boolean_factor_two, null, "t_boolean_factor_two_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_boolean_factor_two.csv",
+		});
+	test_distribute_over = new UnitTest("t_distribute_over", distribute_over, null, "t_distribute_over_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_distribute_over.csv",
+		});
+	test_do_math = new UnitTest("t_do_math", do_math, null, "t_do_math_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_do_math.csv",
+		});
+	test_do_the_factor = new UnitTest("t_do_the_factor", do_the_factor, null, "t_do_the_factor_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_do_the_factor.csv",
+		});
+	test_m_distribute_rot = new UnitTest("t_m_distribute_rot", m_distribute_rot, null, "t_m_distribute_rot_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_m_distribute_rot.csv",
+		});
+	test_rrotate_32 = new UnitTest("t_rrotate_32", rrotate_32, null, "t_rrotate_32_results", 
+		{ /* extra arguments */
+		load_from_file: true,
+		file_url: "../web/unit_tests/tv_rrotate_32.csv",
+		});
+ 
+	var timer_ref = null;
+	var test_count = 0;
+ 
+function next_test_all()
+{
+	clearTimeout(timer_ref);
+	if (test_count > 7)
+	{
+		document.getElementById("test_all_status").innerHTML = "done";
+		return;
+	}
+	document.getElementById("test_all_status").innerHTML = "running test " + test_count + " of 7";
+	switch(test_count)
+	{
+		case 0:
+			load_and_go(test_boolean_factor);
+		break;
+		case 1:
+			load_and_go(test_boolean_factor_two);
+		break;
+		case 2:
+			load_and_go(test_distribute_over);
+		break;
+		case 3:
+			load_and_go(test_do_math);
+		break;
+		case 4:
+			load_and_go(test_do_the_factor);
+		break;
+		case 5:
+			load_and_go(test_m_distribute_rot);
+		break;
+		case 6:
+			load_and_go(test_rrotate_32);
+		break;
+		default:
+		break;
+	}
+	timer_ref = setTimeout("next_test_all()",1000);
+	test_count = test_count + 1;
+	return;
+}
+function cancel_test_all()
+{
+clearTimeout(timer_ref);
+}
+</script> 
+</head> 
+ 
+<body> 
+	<a href="/web/index.html">back to index</a> 
+	<p> 
+	<button onclick="next_test_all()">run all tests on page</button>  
+	<button onclick="cancel_test_all()">cancel running tests</button><p> 
+	<div id="test_all_status"></div><p> 
+	<table class="unit_test_table"> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_boolean_factor<br> 
+		file url: <a href="../web/unit_tests/tv_boolean_factor.csv">../web/unit_tests/tv_boolean_factor.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_boolean_factor)">test</button><p> 
+		<button onclick="show_all_results(test_boolean_factor)">Show all</button> 
+		<button onclick="hide_all_results(test_boolean_factor)">Hide all</button> 
+		<button onclick="show_only_passed(test_boolean_factor)">only show passed</button> 
+		<button onclick="show_only_failed(test_boolean_factor)">only show failed</button> 
+		<div id="t_boolean_factor_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_boolean_factor_two<br> 
+		file url: <a href="../web/unit_tests/tv_boolean_factor_two.csv">../web/unit_tests/tv_boolean_factor_two.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_boolean_factor_two)">test</button><p> 
+		<button onclick="show_all_results(test_boolean_factor_two)">Show all</button> 
+		<button onclick="hide_all_results(test_boolean_factor_two)">Hide all</button> 
+		<button onclick="show_only_passed(test_boolean_factor_two)">only show passed</button> 
+		<button onclick="show_only_failed(test_boolean_factor_two)">only show failed</button> 
+		<div id="t_boolean_factor_two_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_distribute_over<br> 
+		file url: <a href="../web/unit_tests/tv_distribute_over.csv">../web/unit_tests/tv_distribute_over.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_distribute_over)">test</button><p> 
+		<button onclick="show_all_results(test_distribute_over)">Show all</button> 
+		<button onclick="hide_all_results(test_distribute_over)">Hide all</button> 
+		<button onclick="show_only_passed(test_distribute_over)">only show passed</button> 
+		<button onclick="show_only_failed(test_distribute_over)">only show failed</button> 
+		<div id="t_distribute_over_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_do_math<br> 
+		file url: <a href="../web/unit_tests/tv_do_math.csv">../web/unit_tests/tv_do_math.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_do_math)">test</button><p> 
+		<button onclick="show_all_results(test_do_math)">Show all</button> 
+		<button onclick="hide_all_results(test_do_math)">Hide all</button> 
+		<button onclick="show_only_passed(test_do_math)">only show passed</button> 
+		<button onclick="show_only_failed(test_do_math)">only show failed</button> 
+		<div id="t_do_math_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_do_the_factor<br> 
+		file url: <a href="../web/unit_tests/tv_do_the_factor.csv">../web/unit_tests/tv_do_the_factor.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_do_the_factor)">test</button><p> 
+		<button onclick="show_all_results(test_do_the_factor)">Show all</button> 
+		<button onclick="hide_all_results(test_do_the_factor)">Hide all</button> 
+		<button onclick="show_only_passed(test_do_the_factor)">only show passed</button> 
+		<button onclick="show_only_failed(test_do_the_factor)">only show failed</button> 
+		<div id="t_do_the_factor_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_even_row"><td> 
+		<p> 
+		test: t_m_distribute_rot<br> 
+		file url: <a href="../web/unit_tests/tv_m_distribute_rot.csv">../web/unit_tests/tv_m_distribute_rot.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_m_distribute_rot)">test</button><p> 
+		<button onclick="show_all_results(test_m_distribute_rot)">Show all</button> 
+		<button onclick="hide_all_results(test_m_distribute_rot)">Hide all</button> 
+		<button onclick="show_only_passed(test_m_distribute_rot)">only show passed</button> 
+		<button onclick="show_only_failed(test_m_distribute_rot)">only show failed</button> 
+		<div id="t_m_distribute_rot_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	<tr class="unit_test_odd_row"><td> 
+		<p> 
+		test: t_rrotate_32<br> 
+		file url: <a href="../web/unit_tests/tv_rrotate_32.csv">../web/unit_tests/tv_rrotate_32.csv</a> 
+		<p> 
+		<button onclick="load_and_go(test_rrotate_32)">test</button><p> 
+		<button onclick="show_all_results(test_rrotate_32)">Show all</button> 
+		<button onclick="hide_all_results(test_rrotate_32)">Hide all</button> 
+		<button onclick="show_only_passed(test_rrotate_32)">only show passed</button> 
+		<button onclick="show_only_failed(test_rrotate_32)">only show failed</button> 
+		<div id="t_rrotate_32_results">Results will go here (test has not been run).</div> 
+	</td></tr> 
+	</table> 
+	<p> 
+UnitTest perl script/html generator 2012.06.09
+<p> 
+</body></html>
