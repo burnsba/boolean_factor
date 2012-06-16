@@ -4,10 +4,10 @@ INTRODUCTION
 This is a collection of files which can be used to simplify boolean expressions. 
 Expressions of the form:
         A & (B | C > 2) ^ D & ~E
-    are accepted, where:
-		A,B,C ... are boolean (32-bit) values (numbers and underscores allowed)
-		&,|,^,~ are bitwise AND, OR, XOR, and NOT respectively
-		> is rotate right ('A > x' means A rotate right x times)
+are accepted, where:
+        A,B,C ... are boolean (32-bit) values (numbers and underscores allowed)
+        &,|,^,~ are bitwise AND, OR, XOR, and NOT respectively
+        > is rotate right ('A > x' means A rotate right x times)
 
 There's also a simple unit test framework which is somewhat generic. See
 /web/unit_test.js for more info on that.
