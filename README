@@ -1,0 +1,190 @@
+///////////////////////////////////////////////////////////// 2012.06.16 ///////
+INTRODUCTION
+
+This is a collection of files which can be used to simplify boolean expressions. 
+Expressions of the form:
+        A & (B | C > 2) ^ D & ~E
+    are accepted, where:
+		A,B,C ... are boolean (32-bit) values (numbers and underscores allowed)
+		&,|,^,~ are bitwise AND, OR, XOR, and NOT respectively
+		> is rotate right ('A > x' means A rotate right x times)
+
+There's also a simple unit test framework which is somewhat generic. See
+/web/unit_test.js for more info on that.
+
+Works on Chrome 6.0.472.63 (59945) Built on Debian 6.0.2, running on Debian 6.0.4
+
+////////////////////////////////////////////////////////////////////////////////
+WHY I WORKED ON THIS PROJECT
+
+An alternative goal of this project was to become familiar with some basic
+web development. For that I used JavaScript, and I even wrote a simple Perl 
+script.
+
+////////////////////////////////////////////////////////////////////////////////
+FILE ORGANIZATION
+
+I set up Apache at home to test things out. There's a JavaScript function used
+in testing that loads a remote file, but only for HTTP. Also, that perl script.
+But the main boolean simplification doesn't need a web server.
+
+root folder:
+/web/               Contains all .js, .html, .css files
+/web/unit_tests/    Contains input/output values for testing functions
+/perl/              Contains perl script to auto generate UnitTest code
+README
+
+////////////////////////////////////////////////////////////////////////////////
+QUICK OVERVIEW
+
+/web/index.html
+
+==========
+
+boolean factor 
+/web/boolean_factor.html
+--------------
+Takes a boolean algebra equation of the form
+A & (B | C > 2) ^ D & ~E
+
+where:
+A,B,C ... are boolean (32-bit) values (numbers and underscores allowed)
+&,|,^,~ are bitwise AND, OR, XOR, and NOT respectively
+> is rotate right ('A > x' means A rotate right x times)
+
+and attempts to simplify the expression. 32 bit integers are assumed.
+
+==========
+
+recursive xor multipy
+/web/recursive_xor_multiply.html
+---------------------
+Takes a recursive function of the form
+Tn = a*Tn-1 ^ b*Tn-1 ^ c*Tn-1 ...
+
+where:
+a,b,c ... are bitwise-distributable constants (2x)
+* is base 10 multiply (higher precedence)
+^ is base 2 exclusive or (lower precence)
+
+and expands and factors the result as a function of the input variables.
+
+==========
+
+recursive xor rotate
+/web/recursive_xor_rotate.html
+--------------------
+Takes a recursive function of the form
+Tn = f(Tn-1)
+
+where:
+f(T) = ROT(T, a) ^ ROT(T, b) ^ ROT(T, c) ...
+ROT(T,x) is a function that rotates right a 32-bit number
+(negative values of x rotate left)
+a,b,c ... are 32 bit integers
+^ is base 2 exclusive or 
+
+and expands and factors the result as a function of the input variable.
+
+////////////////////////////////////////////////////////////////////////////////
+BEHIND THE SCENES
+
+All the simplification happens in boolean_factor.js. The object operated on is
+a custom type, Expression, defined in expression.js. The idea of an expression
+is to treat every phase as a tree such that each operator creates a child. For
+example, "A&B" is a phrase with two children under operator "&". The phrase
+"A|B&C" has two children under "|" which are "A" and "B&C". And "B&C" has two
+children under "&" which are "B" and "C". This is set up to play nicely
+with parentheses. 
+
+boolean_factor() in boolean_factor.js takes an expression split over
+one operator (e.g. "A&B&C" over "&", or "A|B&C" over "|") and simplifies based on
+a parameter specifying a simplification to apply. boolean_factor_two() splits
+over two operators (e.g. "A&~B|~A&B" over "|" then "&" to find "A^B") to 
+simplify more complex phrases.
+
+If multiple numbers are found, they are combined using the correct operator to
+reduce the total number of terms.
+
+The general idea is to remove all parentheses, then to reduce to the fewest
+number of terms; a XOR output is heavily favored.
+
+The following simplifications rules are used:
+
+    identities
+    A & ~A = 0
+    A & 0 = 0
+    A & A = A
+    A & 1 (MAX_TRUE) = A
+    A ^ 0 = A
+    A ^ A = 0
+    A ^ ~A = 1 (MAX_TRUE)
+    A | ~A = 1 (MAX_TRUE)
+    A | 1 (MAX_TRUE) = 1 (MAX_TRUE)
+    A | 0 = A
+    A | A = A
+    A & ~B |~A & B = A ^ B
+    -- other
+    A & B | A & ~B = A
+    A & ~B | ~A & B = A ^ B 
+    A & B | A & ~B = A
+    (A | B) & (A | ~B) = A
+    A | A & B = A
+    A & (A | B) = A
+    A | ~A & B = A | B
+    A & (~A | B) = A & B
+    A ^ A & B = A & ~B
+    A ^ A & ~B = A & B
+    A & B ^ A & ~B = A
+    A | A ^ B = A | B
+    ~A & B ^ A = A | B
+    A & (~A ^ B) = A & B
+    distributive
+    (A | B) & C = A & C | B & C
+    (A ^ B) & C = A & C ^ B & C
+    *     (A & B) > C = A > C & B > C
+    *     (A ^ B) > C = A > C ^ B > C
+    *     (A | B) > C = A > C | B > C
+    A > X > Y = A > Z (where X,Y are known; Z=X+Y%32)
+    
+    not implemented:
+    ~(~A) = A
+    De Morgan's laws:
+        ~(A & B) = ~A | ~B
+        ~(A | B) = ~A & ~B
+    **     (A ^ B) & ~C = (A | C) ^ (B | C)
+    A & ~C | B & C = A & ~C ^ B & C
+    ** and by extension C ^ C & (A | B) = C & ~A & ~B
+    ** or C ^ (C & A | C & B)
+    ~(A & B) = ~A | ~B
+    ~(A | B) = ~A & ~B
+    ~(A ^ B) = ~A ^ B
+    ** ~(A > B) = ~A > B
+    A ^ A & B ^ B = A | B
+    ~A & B ^ (A | B) = A
+    
+    * Partially implemented; does not work for complex equations
+    ** test this first
+
+////////////////////////////////////////////////////////////////////////////////
+TESTING
+
+The perl script will parse a javascript file and create generic tests for any
+function it finds -- as long as the function is defined at the start of a new
+line. This should avoid inline functions and such. It assumes some test
+directory holds test values to be used in the testing. The test values read
+in from the files are sent through a destringify() function which attempts
+to create an object from the input text. E.g., a new line character in a test
+is "\n", not the literal new line character; "null" is treated as the null
+object, "[]" is an empty array, etc.
+
+The tests themselves run through input/expected output pairs and compares them
+to the output from the function to be tested. I imagine this framework could
+be improved upon a bit, but it met my basic needs. Comparisons are done using
+a combination of === and checking to see if all members of an object are the
+same; I was having problems of two arrays holding the same values but not
+being equal, presumably because they pointed to different locations in 
+memory.
+
+I believe there are tests for all javacsript functions except for functions
+mostly related to HTML.
