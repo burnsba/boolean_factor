@@ -9,6 +9,9 @@ are accepted, where:
         &,|,^,~ are bitwise AND, OR, XOR, and NOT respectively
         > is rotate right ('A > x' means A rotate right x times)
 
+C style operator precedence is used. From left/highest to right/lowest:
+        () ~ > & ^ |
+
 There's also a simple unit test framework which is somewhat generic. See
 /web/unit_test.js for more info on that.
 
